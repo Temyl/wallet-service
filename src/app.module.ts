@@ -9,6 +9,7 @@ import { ApiKey } from './entities/api-key.entity';
 import { AuthModule } from './modules/auth/auth.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ApiKeyModule } from './modules/api-key/aoi-key.module';
+import { HealthController } from './helthcheck';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ApiKeyModule } from './modules/api-key/aoi-key.module';
     AuthModule,
     PaymentModule,
     ApiKeyModule,
+    HealthController
   ],
 })
 export class AppModule {}
