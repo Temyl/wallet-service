@@ -12,22 +12,26 @@ import { ApiKeyModule } from './modules/api-key/aoi-key.module';
 import { HealthController } from './helthcheck';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRootAsync({
+      imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (cs: ConfigService) => ({
         type: 'postgres',
         host: cs.get('DATABASE_HOST'),
-        port: Number(cs.get('DATABASE_PORT') || 5432),
+        port: Number(cs.get('DATABASE_PORT')),
         username: cs.get('DATABASE_USERNAME'),
         password: cs.get('DATABASE_PASSWORD'),
         database: cs.get('DATABASE_NAME'),
         entities: [User, Wallet, Transaction, Transfer, ApiKey],
         synchronize: true,
         logging: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
     }),
+
     AuthModule,
     PaymentModule,
     ApiKeyModule,
