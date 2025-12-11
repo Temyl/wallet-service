@@ -29,16 +29,19 @@ async function bootstrap() {
     .setTitle('Wallet Service API')
     .setDescription('API documentation for Wallet Service')
     .setVersion('1.0')
-    .addBearerAuth() // Optional: if using JWT
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, document); // Swagger UI available at /api
+  SwaggerModule.setup('api', app, document);
 
   // Config and start server
   const config = app.get(ConfigService);
   const port = config.get<number>('PORT') || 3000;
-  await app.listen(port);
+
+  
+  await app.listen(port, '0.0.0.0');
+
   console.log(`App running on http://localhost:${port}`);
   console.log(`Swagger available at http://localhost:${port}/api`);
 }
