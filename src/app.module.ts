@@ -24,14 +24,17 @@ import { HealthController } from './helthcheck';
         password: cs.get('DATABASE_PASSWORD'),
         database: cs.get('DATABASE_NAME'),
         entities: [User, Wallet, Transaction, Transfer, ApiKey],
-        synchronize: true, // set to false in prod and use migrations
+        synchronize: true,
         logging: true,
       }),
     }),
     AuthModule,
     PaymentModule,
     ApiKeyModule,
-    HealthController
+  ],
+
+  controllers: [
+    HealthController, // ✅ Correct place
   ],
 })
 export class AppModule {}
